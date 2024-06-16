@@ -12,7 +12,23 @@ output_file_name = input("OUTPUT FILE > ")
 
 os.path.isfile(output_file_name)
 
-delimiter = input("DELIMITER > ")
+
+while True:
+    source_delimiter = input("On the input file you want an specific delimiter (Default blank spaces)? [y/N] > ")
+    if source_delimiter.lower() == 'y':
+        source_delimiter = True
+        break
+    elif source_delimiter.lower() == 'n':
+        source_delimiter = False
+        break
+    else:
+        print("You can only select Y for yes and N for no.")
+
+if source_delimiter:
+    source_delimiter = input("SOURCE DELIMITER (default blank spaces)>")
+    
+
+delimiter = input("OUTPUT DELIMITER > ")
 
 while True:
     extrafields = input("You want to add extra fields? [Y/N] > ")
@@ -56,7 +72,10 @@ with open(input_file_name, 'r') as input_file:
 if mode.lower() == 'a':
     with open(output_file_name, 'a+') as output_file:
         for line in lines:
-            line = line.split()
+            if source_delimiter:
+                line = line.split(source_delimiter)
+            else:
+                line = line.split()
             if extrafields:
                 line = line + extras
             output_file.write(f"{delimiter}".join(line)+"\n")
@@ -64,7 +83,10 @@ if mode.lower() == 'a':
 elif mode.lower() == 'r':
     with open(output_file_name, 'w') as output_file:
         for line in lines:
-            line = line.split()
+            if source_delimiter:
+                line = line.split(source_delimiter)
+            else:
+                line = line.split()
             if extrafields:
                 line = line + extras
             output_file.write(f"{delimiter}".join(line)+"\n")
