@@ -2,7 +2,6 @@ import os
 
 while True:
     input_file_name = input("INPUT FILE > ")
-    
     if os.path.isfile(input_file_name):
         break
     else:
@@ -14,7 +13,8 @@ os.path.isfile(output_file_name)
 
 
 while True:
-    source_delimiter = input("On the input file you want an specific delimiter (Default blank spaces)? [y/N] > ")
+    source_delimiter = input("On the input file you want an specific delimiter"
+                             + "(Default blank spaces)? [y/N] > ")
     if source_delimiter.lower() == 'y':
         source_delimiter = True
         break
@@ -26,7 +26,7 @@ while True:
 
 if source_delimiter:
     source_delimiter = input("SOURCE DELIMITER (default blank spaces)>")
-    
+
 
 delimiter = input("OUTPUT DELIMITER > ")
 
@@ -55,16 +55,15 @@ extras = []
 for i in range(int(extrafields)):
     extras.append(input(f"Extra field {i+1}/{extrafields} > "))
 
-if os.path.isfile(output_file_name):
-    while True:
-        mode = input("Append or Rewrite OUTPUT FILE [A/R] > ")
+while True:
+    mode = input("Append or Rewrite OUTPUT FILE [A/R] > ")
 
-        if mode.lower() == 'a':
-            break
-        elif mode.lower() == 'r':
-            break
-        else:
-            print("The mode can be 'A' to Append or 'R' to Rewrite only.")
+    if mode.lower() == 'a':
+        break
+    elif mode.lower() == 'r':
+        break
+    else:
+        print("The mode can be 'A' to Append or 'R' to Rewrite only.")
 
 
 with open(input_file_name, 'r') as input_file:
@@ -94,3 +93,4 @@ elif mode.lower() == 'r':
 
 else:
     print("I really don't know how you're here")
+
