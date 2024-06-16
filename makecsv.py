@@ -15,11 +15,36 @@ os.path.isfile(output_file_name)
 delimiter = input("DELIMITER > ")
 
 while True:
+    extrafields = input("You want to add extra fields? [Y/N] > ")
+
+    if extrafields.lower() == 'y':
+        extrafields = True
+        break
+    elif extrafields.lower() == 'n':
+        extrafields = False
+        break
+    else:
+        print("You can only select Y for yes and N for no.")
+
+if extrafields:
+    while True:
+        extrafields = input("How many extrafields you want? > ")
+        if extrafields.isdigit():
+            break
+        else:
+            print("You must type a number.")
+
+extras = []
+
+for i in range(int(extrafields)):
+    extras.append(input(f"Extra field {i+1}/{extrafields} > "))
+
+while True:
     mode = input("Append or Rewrite OUTPUT FILE [A/R] > ")
 
     if mode.lower() == 'a':
         break
-    elif mode.lower == 'r':
+    elif mode.lower() == 'r':
         break
     else:
         print("The mode can be 'A' to Append or 'R' to Rewrite only.")
@@ -31,10 +56,18 @@ with open(input_file_name, 'r') as input_file:
 if mode.lower() == 'a':
     with open(output_file_name, 'a+') as output_file:
         for line in lines:
-            output_file.write(f"{delimiter}".join(line.split())+"\n")
+            line = line.split()
+            if extrafields:
+                line = line + extras
+            output_file.write(f"{delimiter}".join(line)+"\n")
+
 elif mode.lower() == 'r':
-    with open(output_file_name, 'a+') as output_file:
+    with open(output_file_name, 'w') as output_file:
         for line in lines:
-            output_file.write(f"{delimiter}".join(line.split())+"\n")
+            line = line.split()
+            if extrafields:
+                line = line + extras
+            output_file.write(f"{delimiter}".join(line)+"\n")
+
 else:
-    print("I really don't know how you're here") 
+    print("I really don't know how you're here")
