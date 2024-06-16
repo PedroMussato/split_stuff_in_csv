@@ -55,15 +55,16 @@ extras = []
 for i in range(int(extrafields)):
     extras.append(input(f"Extra field {i+1}/{extrafields} > "))
 
-while True:
-    mode = input("Append or Rewrite OUTPUT FILE [A/R] > ")
+if os.path.isfile(output_file_name):
+    while True:
+        mode = input("Append or Rewrite OUTPUT FILE [A/R] > ")
 
-    if mode.lower() == 'a':
-        break
-    elif mode.lower() == 'r':
-        break
-    else:
-        print("The mode can be 'A' to Append or 'R' to Rewrite only.")
+        if mode.lower() == 'a':
+            break
+        elif mode.lower() == 'r':
+            break
+        else:
+            print("The mode can be 'A' to Append or 'R' to Rewrite only.")
 
 
 with open(input_file_name, 'r') as input_file:
